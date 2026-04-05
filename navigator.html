@@ -116,7 +116,7 @@
   <script>
 
     // ─────────────────────────────────────────────
-    // SAMPLE DATA
+    // sample data 
     // Realistic Wisconsin resources.
     // Replace this with a real 211 API call later.
     // ─────────────────────────────────────────────
@@ -126,92 +126,47 @@
         address: "1001 N Marquette St, Madison, WI 53704",
         phone: "(608) 443-5480",
         concerns: ["pain", "mental", "pt", "sleep"],
-        insurance: ["medicaid", "medicare", "uninsured", "any"],
-        tags: ["Primary Care", "Sliding Fee Scale", "FQHC"],
-        tagColors: ["green", "orange", "green"],
-        desc: "Federally Qualified Health Center offering primary care, behavioral health, and chronic disease management. Accepts ForwardHealth and uninsured patients on a sliding fee scale.",
-        reasons: {
-          pain:   "Offers chronic pain management and medication review.",
-          mental: "Behavioral health services available on-site.",
-          pt:     "Can refer to physical therapy and rehabilitation.",
-          sleep:  "Can assess sleep issues and refer to specialists."
-        }
+
       },
       {
         name: "UW Health Pain Management Clinic",
         address: "600 Highland Ave, Madison, WI 53792",
         phone: "(608) 263-9550",
         concerns: ["pain"],
-        insurance: ["medicaid", "medicare", "any"],
-        tags: ["Pain Specialist", "Multidisciplinary", "Referral Needed"],
-        tagColors: ["green", "green", "blue"],
-        desc: "Comprehensive pain management clinic offering multidisciplinary evaluation, interventional procedures, and non-opioid therapies including CBT and physical rehabilitation.",
-        reasons: {
-          pain: "Specializes in chronic pain — offers injections, CBT, and rehab under one roof."
-        }
       },
       {
         name: "Journey Mental Health Center",
         address: "116 N Hamilton St, Madison, WI 53703",
         phone: "(608) 280-2700",
         concerns: ["mental", "pain"],
-        insurance: ["medicaid", "medicare", "uninsured", "any"],
-        tags: ["Mental Health", "Trauma-Informed", "Sliding Fee"],
-        tagColors: ["blue", "blue", "orange"],
-        desc: "Community mental health center providing therapy, crisis support, and psychiatric services. Trauma-informed care available. ForwardHealth accepted.",
-        reasons: {
-          mental: "Trauma-informed therapists experienced with pain-related distress and medical invalidation.",
-          pain:   "Psychological support for chronic pain patients, including CBT-based approaches."
-        }
+
       },
       {
         name: "Dean Medical Group — Sleep Center",
         address: "1821 S Stoughton Rd, Madison, WI 53716",
         phone: "(608) 395-4900",
         concerns: ["sleep"],
-        insurance: ["medicaid", "medicare", "any"],
-        tags: ["Sleep Clinic", "CBT-I", "Diagnostic Testing"],
-        tagColors: ["blue", "blue", "green"],
-        desc: "Accredited sleep center offering CBT for Insomnia (CBT-I), sleep studies, and treatment for sleep disorders. Especially relevant for chronic pain patients with sleep disruption.",
-        reasons: {
-          sleep: "Offers CBT-I — the gold standard non-drug treatment for insomnia common in chronic pain."
-        }
+
       },
       {
         name: "Meriter Physical Therapy",
         address: "202 S Park St, Madison, WI 53715",
         phone: "(608) 417-5000",
         concerns: ["pt", "pain"],
-        insurance: ["medicaid", "medicare", "any"],
-        tags: ["Physical Therapy", "Chronic Pain", "Rehab"],
-        tagColors: ["green", "green", "green"],
-        desc: "Outpatient physical therapy clinic specializing in musculoskeletal pain, post-surgical rehab, and chronic pain movement programs. Most insurances accepted.",
-        reasons: {
-          pt:   "Outpatient PT with chronic pain specialization.",
-          pain: "Movement-based, non-pharmaceutical therapy for long-term pain reduction."
-        }
+
       },
       {
         name: "Dane County Human Services",
         address: "2121 Lien Rd, Madison, WI 53704",
         phone: "(608) 261-9933",
         concerns: ["pain", "mental", "sleep", "pt"],
-        insurance: ["uninsured", "medicaid", "any"],
-        tags: ["Transportation Help", "Case Management", "SDOH Support"],
-        tagColors: ["orange", "orange", "orange"],
-        desc: "Connects residents to county transportation services, food assistance, and social support. Helps uninsured and Medicaid patients navigate barriers to accessing care.",
-        reasons: {
-          pain:   "Can arrange rides to pain care appointments and connect to community resources.",
-          mental: "Social support and case management for mental health navigation.",
-          sleep:  "Can help with transportation barriers to sleep clinic appointments.",
-          pt:     "Transportation coordination to physical therapy sessions."
-        }
+
       }
     ];
 
 
     // ─────────────────────────────────────────────
-    // MAIN FUNCTION — runs when user clicks button
+    // main function
     // ─────────────────────────────────────────────
     function findCare() {
       const zip     = document.getElementById("zip").value.trim();
