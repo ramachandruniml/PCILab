@@ -5,6 +5,235 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resources</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      color-scheme: dark;
+      --surface: #101827;
+      --surface-muted: #162133;
+      --border: #283752;
+      --border-strong: #385075;
+      --text: #eef4ff;
+      --muted: #9fb0cc;
+      --brand: #4f8cff;
+      --brand-soft: rgba(79, 140, 255, 0.14);
+      --shadow: 0 22px 48px rgba(0, 0, 0, 0.34);
+    }
+
+    h1 { margin: 0 0 10px; color: var(--text); font-size: 30px; line-height: 1.1; }
+    p { margin: 0; color: var(--muted); line-height: 1.6; }
+
+    .hero,
+    .controls,
+    .support-panel {
+      background: linear-gradient(180deg, rgba(17, 26, 42, 0.98) 0%, rgba(12, 19, 31, 0.98) 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 26px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: #d9e7ff;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+      max-width: 640px;
+      font-size: 16px;
+    }
+
+    .controls {
+      margin-top: 18px;
+      padding: 18px;
+    }
+
+    .controls-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(9, 15, 28, 0.88);
+      color: var(--text);
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.16);
+    }
+
+    .chip-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .chip {
+      padding: 9px 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(9, 15, 28, 0.76);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .chip:hover,
+    .chip:focus,
+    .chip.active {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+      color: var(--text);
+      outline: none;
+    }
+
+    .results-meta {
+      margin-top: 14px;
+      color: #c7d7f3;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .resource-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .resource-card,
+    .empty-state {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(9, 15, 28, 0.76);
+    }
+
+    .resource-card {
+      display: block;
+      padding: 18px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .resource-card:hover,
+    .resource-card:focus {
+      transform: translateY(-2px);
+      border-color: var(--brand);
+      background: rgba(14, 22, 38, 0.92);
+      box-shadow: 0 14px 28px rgba(26, 61, 132, 0.22);
+      outline: none;
+    }
+
+    .resource-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .resource-title {
+      color: var(--text);
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .resource-tag {
+      flex-shrink: 0;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: #dce8ff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .resource-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #326de6 0%, #4f8cff 100%);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 10px 20px rgba(50, 109, 230, 0.28);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    }
+
+    .resource-card:hover .resource-link,
+    .resource-card:focus .resource-link {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(50, 109, 230, 0.34);
+      filter: brightness(1.04);
+    }
+
+    .empty-state {
+      padding: 22px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .support-panel {
+      margin-top: 20px;
+      padding: 18px 20px;
+    }
+
+    .support-panel strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    @media (max-width: 640px) {
+      .hero,
+      .controls,
+      .support-panel {
+        padding: 20px;
+      }
+
+      .resource-top {
+        display: block;
+      }
+
+      .resource-tag {
+        display: inline-block;
+        margin-top: 12px;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav class="site-nav">
@@ -15,15 +244,27 @@
   </nav>
 
   <main class="page-shell">
-    <h1>Resources</h1>
-    <p>Here are some resources:</p>
-    <ul>
-      <li><a href="https://uspainfoundation.org/resources/">Living with Chronic Pain</a></li>
-      <li><a href="https://www.acpanow.com/acpa-stanford-guide.html#/">ACPA's guide to Chronic Pain</a></li>
-      <li><a href="https://www.acpanow.com/communication-guide.html#/">ACPA's communication guide</a></li>
-      <li><a href="https://anxietycoach.mayoclinic.org/">Mayo Clinic's Anxiety Coach</a></li>
-      <li><a href="https://painmanagementcollaboratory.org/talking-points-preparing-for-a-provider-visit/">Preparing for a Provider Visit</a></li>
-    </ul>
+    <section class="hero">
+      <div class="eyebrow">Resource Library</div>
+      <h1>Helpful tools for living with pain</h1>
+      <p class="hero-subtitle">Search or filter the list below to find a resource quickly. The page is set up to stay simple and easy to scan.</p>
+    </section>
+
+    <section class="controls">
+      <div class="controls-row">
+        <input id="resourceSearch" class="search-input" type="text" placeholder="Search resources by name or topic">
+      </div>
+      <div id="filterChips" class="chip-group"></div>
+      <div id="resultsMeta" class="results-meta"></div>
+    </section>
+
+    <section id="resourceList" class="resource-list" aria-live="polite"></section>
+
+    <section class="support-panel">
+      <strong>Tip for using this page</strong>
+      <p>If you are not sure where to begin, start with the planning resources first, then open a self-management tool after. That usually makes the list easier to work through.</p>
+    </section>
   </main>
+  <script src="resources.js"></script>
 </body>
 </html>

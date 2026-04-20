@@ -1,8 +1,10 @@
 body {
   margin: 0;
   font-family: 'Times New Roman', Times, serif;
-  color: #222;
-  background: #f9f9f7;
+  color: #e8f0ff;
+  background:
+    radial-gradient(circle at top, rgba(61, 111, 201, 0.24), transparent 28%),
+    linear-gradient(180deg, #08111f 0%, #0d172a 52%, #09101d 100%);
 }
 
 .site-nav {
@@ -10,8 +12,9 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: #ddd;
-  border-bottom: 1px solid #c8c8c8;
+  background: rgba(8, 14, 27, 0.84);
+  border-bottom: 1px solid rgba(127, 156, 214, 0.2);
+  backdrop-filter: blur(16px);
   z-index: 1000;
 }
 
@@ -33,18 +36,20 @@ body {
 .site-nav a {
   display: block;
   padding: 18px 12px;
-  color: #222;
+  color: #d5e2ff;
   text-decoration: none;
   font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .site-nav a:hover,
 .site-nav a:focus {
-  background: #cfcfcf;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
 }
 
 .site-nav a.active {
-  background: #0f6e56;
+  background: linear-gradient(135deg, #2f63d9 0%, #4f8cff 100%);
   color: #fff;
 }
 

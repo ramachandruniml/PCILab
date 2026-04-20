@@ -3,63 +3,355 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wisconsin Pain Care Navigator</title>
+  <title>Pain Care Navigator</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    h1 { font-size: 22px; margin-bottom: 6px; }
-    .subtitle { color: #666; font-size: 14px; margin-bottom: 28px; }
+    :root {
+      color-scheme: dark;
+      --surface: #101827;
+      --surface-muted: #162133;
+      --border: #283752;
+      --border-strong: #385075;
+      --text: #eef4ff;
+      --muted: #9fb0cc;
+      --brand: #4f8cff;
+      --brand-strong: #e6f0ff;
+      --brand-soft: rgba(79, 140, 255, 0.14);
+      --shadow: 0 22px 48px rgba(0, 0, 0, 0.34);
+    }
 
-    label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 5px; }
+    h1 { font-size: 22px; margin-bottom: 6px; color: var(--text); }
+    .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(20, 31, 48, 0.98) 0%, rgba(9, 15, 28, 0.98) 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy {
+      flex: 1;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand-strong);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #67a2ff;
+      box-shadow: 0 0 0 4px rgba(103, 162, 255, 0.16);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 5px; color: #dce7ff; }
 
     input {
       width: 100%;
       padding: 10px 12px;
       font-size: 15px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border);
       border-radius: 6px;
       margin-bottom: 16px;
-      background: white;
+      background: rgba(8, 13, 24, 0.94);
+      color: var(--text);
       box-sizing: border-box;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 16px;
+      background: rgba(8, 13, 24, 0.94);
+      color: var(--text);
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.18);
+    }
+
+    .input-hint {
+      margin-top: -8px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
     }
 
     button {
       width: 100%;
       padding: 12px;
-      background: #0F6E56;
+      background: linear-gradient(135deg, #326de6 0%, #4f8cff 100%);
       color: white;
       font-size: 15px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
-    button:hover { background: #1D9E75; }
+    button:hover { background: linear-gradient(135deg, #3d7cff 0%, #66a0ff 100%); }
+    button:hover,
+    button:focus {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(79, 140, 255, 0.28);
+    }
 
-    #error { color: red; font-size: 14px; margin-top: 12px; }
+    .secondary-btn {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .secondary-btn:hover,
+    .secondary-btn:focus {
+      background: var(--surface-muted);
+    }
+
+    #error { color: #ff8c8c; font-size: 14px; margin-top: 12px; }
+    #error:empty { display: none; }
+
+    .toolbar,
+    .search-history {
+      margin-top: 18px;
+    }
+
+    .toolbar-top,
+    .toolbar-bottom {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toolbar-bottom {
+      margin-top: 10px;
+    }
+
+    .toolbar-search {
+      flex: 1;
+      min-width: 230px;
+      margin-bottom: 0;
+    }
+
+    .toolbar-select {
+      width: auto;
+      min-width: 180px;
+      margin-bottom: 0;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      width: auto;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chip:hover,
+    .chip:focus,
+    .chip.active {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+      color: var(--brand-strong);
+    }
+
+    .loading-state,
+    .empty-state {
+      margin-top: 18px;
+      background: var(--surface);
+      border: 1px dashed var(--border-strong);
+      border-radius: 18px;
+      padding: 22px;
+      color: var(--muted);
+      text-align: center;
+    }
 
     .card {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(17, 26, 42, 0.98) 0%, rgba(12, 19, 31, 0.98) 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
       padding: 18px;
       margin-top: 14px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
     }
     .card h3 { margin: 0 0 4px; font-size: 16px; }
-    .card .meta { font-size: 13px; color: #555; margin-bottom: 8px; }
-    .card .desc { font-size: 13px; color: #444; margin-bottom: 10px; line-height: 1.5; }
+    .card .meta { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .card .categories {
+      font-size: 12px;
+      color: #8cb7ff;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .card .desc { font-size: 13px; color: #d8e3f7; margin-bottom: 10px; line-height: 1.5; }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .card-link {
+      width: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 108px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--surface-muted);
+    }
+
+    .card-link.primary {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: white;
+    }
+
+    .card-link:hover,
+    .card-link:focus {
+      filter: brightness(0.98);
+    }
+
+    .badge {
+      flex-shrink: 0;
+      background: var(--brand-soft);
+      color: var(--brand-strong);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
 
     .results-title {
       font-size: 14px;
-      color: #888;
+      color: #c0d1ec;
       margin-top: 28px;
       margin-bottom: 4px;
+      font-weight: 700;
     }
 
     .note {
       font-size: 12px;
-      color: #aaa;
+      color: #8fa5c7;
       margin-top: 30px;
       padding-top: 16px;
-      border-top: 1px solid #eee;
+      border-top: 1px solid rgba(143, 165, 199, 0.18);
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      max-width: 280px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #e7efff;
+      color: #10203d;
+      font-size: 13px;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      .hero-top,
+      .field-row,
+      .actions,
+      .toolbar-top,
+      .toolbar-bottom,
+      .card-head {
+        display: block;
+      }
+
+      .status-pill,
+      .actions button,
+      .toolbar-select,
+      .toolbar-search {
+        width: 100%;
+      }
+
+      .status-pill {
+        margin-top: 14px;
+      }
+
+      .secondary-btn {
+        margin-top: 10px;
+      }
+
+      .badge {
+        display: inline-flex;
+        margin-top: 12px;
+      }
     }
   </style>
 </head>
@@ -72,97 +364,50 @@
   </nav>
 
   <main class="page-shell">
-    <h1>Wisconsin Pain Care Navigator</h1>
-    <p class="subtitle">Enter your ZIP code to find nearby pain care resources.</p>
+    <section class="hero">
+      <div class="hero-top">
+        <div class="hero-copy">
+          <h1>Pain Care Navigator</h1>
+          <p class="subtitle">Enter your ZIP code to explore pain care resources near you.</p>
+        </div>
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          Supportive care search
+        </div>
+      </div>
 
-    <label for="zip">ZIP Code</label>
-    <input type="text" id="zip" placeholder="e.g. 53703" maxlength="5">
+      <div class="field-row">
+        <div>
+          <label for="zip">ZIP Code</label>
+          <input type="text" id="zip" inputmode="numeric" autocomplete="postal-code" placeholder="e.g. 53703" maxlength="5">
+          <div class="input-hint" id="zipHint">Use any 5-digit ZIP code.</div>
+        </div>
 
-    <button onclick="findCare()">Find Care</button>
+        <div>
+          <label for="category">Category</label>
+          <select id="category">
+            <option value="All Categories">All Categories</option>
+          </select>
+        </div>
+      </div>
 
-    <div id="error"></div>
-    <div id="results"></div>
+      <div class="actions">
+        <button id="findCareBtn" type="button">Find Care</button>
+        <button id="resetFiltersBtn" class="secondary-btn" type="button">Reset</button>
+      </div>
+
+      <div id="quickCategories" class="search-history"></div>
+      <div id="recentSearches" class="search-history"></div>
+      <div id="error" aria-live="polite"></div>
+    </section>
+
+    <div id="results" aria-live="polite"></div>
   </main>
 
-  <script>
-    const SAMPLE_RESOURCES = [
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-      {
-        name: "UW Health Pain Management Clinic",
-        address: "600 Highland Ave, Madison, WI 53792",
-        phone: "(608) 263-9550",
-        description: "Comprehensive pain management clinic offering multidisciplinary evaluation, procedures, and non-opioid therapies."
-      },
-      {
-        name: "Journey Mental Health Center",
-        address: "116 N Hamilton St, Madison, WI 53703",
-        phone: "(608) 280-2700",
-        description: "Community mental health center providing therapy, crisis support, and psychiatric services."
-      },
-      {
-        name: "National Chronic Pain Support Group",
-        address: "1821 S Stoughton Rd, Madison, WI 53716",
-        phone: "(800) 910-0664",
-        description: "Support group for individuals dealing with chronic pain."
-      },
-      {
-        name: "Epilepsy & Seizures 24/7 Helpline",
-        address: "1302 Mendota Street, Madison, WI 53714",
-        phone: "(800) 332-1000",
-        description: "Helpline for individuals with epilepsy and seizures, offering support and resources."
-      },
-      {
-        name: "Meriter Physical Therapy",
-        address: "202 S Park St, Madison, WI 53715",
-        phone: "(608) 417-5000",
-        description: "Outpatient physical therapy clinic specializing in musculoskeletal pain and chronic pain movement programs."
-      },
-      {
-        name: "Pack Health Digital Health Coaching",
-        address: "Online",
-        phone: "(855) 255-2362",
-        description: "Pack Health is a digital health coaching platform for chronic disease management providing free weekly coaching online and over the phone."
-      }
-    ];
-
-    function findCare() {
-      const zip = document.getElementById("zip").value.trim();
-
-      document.getElementById("error").textContent = "";
-      document.getElementById("results").innerHTML = "";
-
-      if (zip.length !== 5 || isNaN(zip)) {
-        document.getElementById("error").textContent = "Please enter a valid 5-digit ZIP code.";
-        return;
-      }
-
-      showResults(SAMPLE_RESOURCES, zip);
-    }
-
-    function showResults(resources, zip) {
-      const container = document.getElementById("results");
-
-      if (resources.length === 0) {
-        container.innerHTML = "<p style='margin-top:20px;color:#666'>No matches found.</p>";
-        return;
-      }
-
-      container.innerHTML = "<p class='results-title'>" + resources.length + " resources found near " + zip + "</p>";
-
-      resources.forEach(function(resource) {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML =
-          "<h3>" + resource.name + "</h3>" +
-          "<div class='meta'>" + resource.address + " &middot; " + resource.phone + "</div>" +
-          "<div class='desc'>" + resource.description + "</div>";
-
-        container.appendChild(card);
-      });
-
-      container.innerHTML +=
-        "<p class='note'>Using sample data for now. Once a 211 API key is connected, results will be pulled live based on the exact ZIP code entered.</p>";
-    }
-  </script>
+  <script src="navigator.js"></script>
 </body>
 </html>
+
+
